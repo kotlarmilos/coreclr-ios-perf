@@ -50,8 +50,8 @@ The repository includes a sample .NET MAUI app in the `MyMauiApp` directory. Thi
 - To build and run with Mono: `-p:UseMonoRuntime=true`
 
 ```bash
-dotnet build -f net10.0-ios -p:DeviceName=YOUR_DEVICE_ID /bl
-dotnet build -f net10.0-ios -t:Run -p:DeviceName=YOUR_DEVICE_ID
+dotnet build -f net10.0-ios -c Release -p:DeviceName=YOUR_DEVICE_ID /bl
+dotnet build -f net10.0-ios -c Release -t:Run -p:DeviceName=YOUR_DEVICE_ID
 ```
 
 ## Cleanup

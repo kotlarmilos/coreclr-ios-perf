@@ -1,5 +1,5 @@
-bin/*
-obj/*
+MyMauiApp/bin/*
+MyMauiApp/obj/*
 
 runtime/*
 macios/*
