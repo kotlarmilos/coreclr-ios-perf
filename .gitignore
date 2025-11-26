@@ -6,3 +6,5 @@ macios/*
 
 .DS_Store
 *.binlog
+
+*.trace
