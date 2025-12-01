@@ -1,8 +1,8 @@
 MyMauiApp/bin/*
 MyMauiApp/obj/*
 
-runtime/*
-macios/*
+runtime/
+macios/
 
 .DS_Store
 *.binlog
