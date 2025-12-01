@@ -8,14 +8,12 @@ PARENT_DIR="$(dirname "${BASH_SOURCE[0]}")/.."
 cd "$PARENT_DIR"
 
 # Clone macios repository if it doesn't exist in parent directory
-if [ ! -d "../macios" ]; then
-	cd ..
+if [ ! -d "macios" ]; then
 	git clone https://github.com/dotnet/macios.git
-	cd macios
-	git checkout feature/coreclr-r2r
-else
-	cd ../macios
 fi
+
+cd macios
+git checkout feature/coreclr-r2r
 
 if [[ "${1:-}" != "--skip-clean" ]]; then
 	git clean -xfd
