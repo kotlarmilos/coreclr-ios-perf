@@ -27,6 +27,16 @@ Next, build the macios repository which contains the iOS SDK workload that integ
 ./scripts/build-macios.sh
 ```
 
+TODO: Remove fix below after https://github.com/dotnet/macios/issues/24339 gets resolved.
+
+`macios/builds/Makefile` needs manual fix to look for runtime pack in Release instead of Debug:
+
+```sh
+CUSTOM_DOTNET_NUGET_FEED=\
+	--source $(DOTNET_RUNTIME_PATH)/artifacts/packages/Release/Shipping \
+	$(foreach feed,$(ALL_NUGET_FEEDS), --source $(feed))
+```
+
 ## Step 3: Patch iOS Workloads
 
 After building both repositories, you need to replace your local .NET iOS workloads with the custom-built versions. This allows you to use CoreCLR runtime when building iOS apps.
