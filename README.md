@@ -4,12 +4,11 @@ This repository provides an environment for measuring CoreCLR performance on iOS
 
 ## Setup Overview
 
-The complete setup involves three main steps:
+The complete setup involves two main steps:
 1. **Build the .NET Runtime** - Custom runtime packs for iOS
 2. **Build the iOS SDK (macios)** - Build the custom iOS SDK workload
-3. **Patch Local Workloads** - Replace your local iOS workloads with the custom builds
 
-After setup, you can build and run a MAUI sample app to test CoreCLR performance.
+After setup, you can build and run a MAUI sample app to test CoreCLR performance. The included `NuGet.config` automatically uses the local builds without modifying your system.
 
 ## Step 1: Build the .NET Runtime
 
@@ -21,7 +20,7 @@ The first step is to build the .NET runtime repository with iOS runtime packs. T
 
 ## Step 2: Build the iOS SDK (macios)
 
-Next, build the macios repository which contains the iOS SDK workload that integrate with the .NET runtime.
+Next, build the macios repository which contains the iOS SDK workload that integrates with the .NET runtime.
 
 ```bash
 ./scripts/build-macios.sh
@@ -37,18 +36,6 @@ CUSTOM_DOTNET_NUGET_FEED=\
 	$(foreach feed,$(ALL_NUGET_FEEDS), --source $(feed))
 ```
 
-## Step 3: Patch iOS Workloads
-
-After building both repositories, you need to replace your local .NET iOS workloads with the custom-built versions. This allows you to use CoreCLR runtime when building iOS apps.
-
-**Run the script:**
-
-```bash
-./scripts/install-local-ios-sdk.sh
-```
-
-⚠️ **Important:** This modifies your system's .NET installation. Make sure to run the cleanup script (see below) when you're done testing to restore the original workloads.
-
 ## Testing with the MAUI App
 
 The repository includes a sample .NET MAUI app in the `MyMauiApp` directory. This app is configured to run with CoreCLR on iOS devices.
@@ -60,14 +47,15 @@ The repository includes a sample .NET MAUI app in the `MyMauiApp` directory. Thi
 - To build and run with Mono: `-p:UseMonoRuntime=true`
 
 ```bash
+cd MyMauiApp
 dotnet build -f net10.0-ios -c Release -p:DeviceName=YOUR_DEVICE_ID /bl
 dotnet build -f net10.0-ios -c Release -t:Run -p:DeviceName=YOUR_DEVICE_ID
 ```
 
-## Cleanup
+## How It Works
 
-When you're finished testing, it's important to restore your original iOS workloads.
+The `MyMauiApp/NuGet.config` file configures NuGet to look for packages in this order:
+1. Local macios build (`../macios/_build/nupkgs`) - highest priority
+2. Official NuGet feeds - fallback for other packages
 
-```bash
-./scripts/restore-local-ios-sdk.sh
-```
+This means your local iOS SDK will be used automatically without any system modifications. To switch back to the official SDK, simply rename or remove the `NuGet.config` file.
