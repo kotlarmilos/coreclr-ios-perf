@@ -28,7 +28,7 @@ for PACK in "${PACKS[@]}"; do
   
   if [ -d "$BACKUP_DIR/$PACK" ]; then
     # Remove symlink
-    sudo rm -f "$PACK_DIR/$PACK/$INSTALLED_VERSION"
+    sudo rm -rf "$PACK_DIR/$PACK/$INSTALLED_VERSION"
     
     # Restore original
     sudo cp -r "$BACKUP_DIR/$PACK" "$PACK_DIR/$PACK/$INSTALLED_VERSION"
