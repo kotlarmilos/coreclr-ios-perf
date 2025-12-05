@@ -13,7 +13,7 @@ if [ ! -d "$LOCAL_NUPKGS" ]; then
 fi
 
 PACK_DIR="/usr/local/share/dotnet/packs"
-LOCAL_VERSION="26.1.10552-ci.net11-0"
+LOCAL_VERSION="26.1.10554-ci.feature-coreclr-r2r"
 INSTALLED_VERSION="26.1.10494"
 BACKUP_DIR="/tmp/ios-sdk-backup-${INSTALLED_VERSION}"
 
@@ -56,9 +56,10 @@ for PACK in "${PACKS[@]}"; do
     # Fix permissions for all executables in tools directory
     if [ -d "$PACK_DIR/$PACK/$LOCAL_VERSION/tools" ]; then
       echo "  Fixing executable permissions..."
-      sudo find "$PACK_DIR/$PACK/$LOCAL_VERSION/tools" -type f -perm +111 -exec chmod +x {} \; 2>/dev/null || true
-      sudo chmod -R +x "$PACK_DIR/$PACK/$LOCAL_VERSION/tools/bin" 2>/dev/null || true
-      sudo chmod -R +x "$PACK_DIR/$PACK/$LOCAL_VERSION/tools/lib"/**/MacOS/* 2>/dev/null || true
+      # Fix all shell scripts and executables in bin
+      sudo find "$PACK_DIR/$PACK/$LOCAL_VERSION/tools/bin" -type f -exec chmod +x {} \; 2>/dev/null || true
+      # Fix all MacOS executables in app bundles
+      sudo find "$PACK_DIR/$PACK/$LOCAL_VERSION/tools/lib" -type d -name "MacOS" -exec sh -c 'chmod +x "$0"/*' {} \; 2>/dev/null || true
     fi
     
     # Replace installed version with symlink to local version
