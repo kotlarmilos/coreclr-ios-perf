@@ -3,7 +3,7 @@
 # Script to restore original iOS SDK packs
 
 PACK_DIR="/usr/local/share/dotnet/packs"
-LOCAL_VERSION="26.1.10539-ci.main"
+LOCAL_VERSION="26.1.10554-ci.feature-coreclr-r2r"
 INSTALLED_VERSION="26.1.10494"
 BACKUP_DIR="/tmp/ios-sdk-backup-${INSTALLED_VERSION}"
 
