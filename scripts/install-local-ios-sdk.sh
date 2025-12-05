@@ -13,7 +13,7 @@ if [ ! -d "$LOCAL_NUPKGS" ]; then
 fi
 
 PACK_DIR="/usr/local/share/dotnet/packs"
-LOCAL_VERSION="26.1.10552-ci.net11-0"
+LOCAL_VERSION="26.1.10554-ci.feature-coreclr-r2r"
 INSTALLED_VERSION="26.1.10494"
 BACKUP_DIR="/tmp/ios-sdk-backup-${INSTALLED_VERSION}"
 
