@@ -1,73 +1,50 @@
-# CoreCLR iOS Performance Testing
+# CoreCLR vs Mono iOS Performance
 
-This repository provides an environment for measuring CoreCLR performance on iOS devices using .NET MAUI applications.
+Compare build times and bundle sizes between CoreCLR, Mono, and NativeAOT runtimes for iOS apps.
 
-## Setup Overview
-
-The complete setup involves three main steps:
-1. **Build the .NET Runtime** - Custom runtime packs for iOS
-2. **Build the iOS SDK (macios)** - Build the custom iOS SDK workload
-3. **Patch Local Workloads** - Replace your local iOS workloads with the custom builds
-
-After setup, you can build and run a MAUI sample app to test CoreCLR performance.
-
-## Step 1: Build the .NET Runtime
-
-The first step is to build the .NET runtime repository with iOS runtime packs. This is necessary because the CoreCLR changes for iOS performance testing are not yet integrated into the unified build.
+## Quick Start
 
 ```bash
-./scripts/build-runtime.sh
+./measure-perf.sh ios coreclr release simulator
 ```
 
-## Step 2: Build the iOS SDK (macios)
+## Scripts
 
-Next, build the macios repository which contains the iOS SDK workload that integrate with the .NET runtime.
+| Script | Description |
+|--------|-------------|
+| `dotnet.sh` | Downloads .NET SDK, installs iOS/MAUI workloads, and xharness |
+| `measure-perf.sh` | Runs performance measurement |
+
+## Usage
 
 ```bash
-./scripts/build-macios.sh
+./measure-perf.sh <app> <runtime> <config> <target>
 ```
 
-TODO: Remove fix below after https://github.com/dotnet/macios/issues/24339 gets resolved.
+| Parameter | Values |
+|-----------|--------|
+| app | `ios`, `maui` |
+| runtime | `coreclr`, `mono`, `nativeaot` |
+| config | `debug`, `release` |
+| target | `simulator`, `device` |
 
-`macios/builds/Makefile` needs manual fix to look for runtime pack in Release instead of Debug:
-
-```sh
-CUSTOM_DOTNET_NUGET_FEED=\
-	--source $(DOTNET_RUNTIME_PATH)/artifacts/packages/Release/Shipping \
-	$(foreach feed,$(ALL_NUGET_FEEDS), --source $(feed))
-```
-
-## Step 3: Patch iOS Workloads
-
-After building both repositories, you need to replace your local .NET iOS workloads with the custom-built versions. This allows you to use CoreCLR runtime when building iOS apps.
-
-**Run the script:**
+### Examples
 
 ```bash
-./scripts/install-local-ios-sdk.sh
+./measure-perf.sh ios coreclr release simulator   # iOS, CoreCLR, Release, Simulator
+./measure-perf.sh ios mono release device         # iOS, Mono, Release, Device
+./measure-perf.sh maui coreclr debug simulator    # MAUI, CoreCLR, Debug, Simulator
 ```
 
-⚠️ **Important:** This modifies your system's .NET installation. Make sure to run the cleanup script (see below) when you're done testing to restore the original workloads.
+## Requirements
 
-## Testing with the MAUI App
+- macOS with arm64 (Apple Silicon)
+- Xcode with iOS SDK
 
-The repository includes a sample .NET MAUI app in the `MyMauiApp` directory. This app is configured to run with CoreCLR on iOS devices.
+## Output
 
-**Build options:**
+Each run creates a timestamped directory in `results/` containing:
+- `results.md` - Markdown report with metrics
+- `*.app` - App bundle snapshot
+- `logs/` - xharness device/simulator logs
 
-- To build and run with CoreCLR: `-p:UseMonoRuntime=false`
-- To enable R2R: `-p:PublishReadyToRun=true`
-- To build and run with Mono: `-p:UseMonoRuntime=true`
-
-```bash
-dotnet build -f net10.0-ios -c Release -p:DeviceName=YOUR_DEVICE_ID /bl
-dotnet build -f net10.0-ios -c Release -t:Run -p:DeviceName=YOUR_DEVICE_ID
-```
-
-## Cleanup
-
-When you're finished testing, it's important to restore your original iOS workloads.
-
-```bash
-./scripts/restore-local-ios-sdk.sh
-```

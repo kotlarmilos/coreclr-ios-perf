@@ -1,0 +1,10 @@
+{
+  "sdk": {
+    "version": "11.0.100-preview.1.26076.102"
+  },
+  "msbuild-sdks": {
+    "microsoft.net.sdk.ios": "26.2.11310-net11-p1/11.0.100-preview.1",
+    "microsoft.net.sdk.maccatalyst": "26.2.11310-net11-p1/11.0.100-preview.1",
+    "microsoft.net.sdk.maui": "11.0.0-preview.1.26081.3/11.0.100-preview.1"
+  }
+}

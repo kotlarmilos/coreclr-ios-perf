@@ -1,10 +1,19 @@
-MyMauiApp/bin/*
-MyMauiApp/obj/*
-
-runtime/
-macios/
-
+# macOS
 .DS_Store
-*.binlog
 
-*.trace
+# SDK artifacts
+dotnet/
+*.tar.gz
+
+# App build outputs
+apps/*/bin/
+apps/*/obj/
+
+# Tools
+tools/
+
+# Results
+results/
+
+# NuGet packages
+packages/
