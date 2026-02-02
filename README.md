@@ -1,4 +1,4 @@
-# CoreCLR vs Mono iOS Performance
+# iOS performance measurements
 
 Compare build times and bundle sizes between CoreCLR, Mono, and NativeAOT runtimes for iOS apps.
 
