@@ -1,0 +1,36 @@
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.5.2.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "apps", "apps", "{1787FE1D-075E-9E68-7218-25F1BD1BBEAB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SampleMAUI", "apps\SampleMAUI\SampleMAUI.csproj", "{58FFC427-6687-21B2-D87D-A783FA2344CA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SampleiOS", "apps\SampleiOS\SampleiOS.csproj", "{3FF00504-D776-FC14-943E-D0241F6AE263}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{58FFC427-6687-21B2-D87D-A783FA2344CA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{58FFC427-6687-21B2-D87D-A783FA2344CA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{58FFC427-6687-21B2-D87D-A783FA2344CA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{58FFC427-6687-21B2-D87D-A783FA2344CA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3FF00504-D776-FC14-943E-D0241F6AE263}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3FF00504-D776-FC14-943E-D0241F6AE263}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3FF00504-D776-FC14-943E-D0241F6AE263}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3FF00504-D776-FC14-943E-D0241F6AE263}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{58FFC427-6687-21B2-D87D-A783FA2344CA} = {1787FE1D-075E-9E68-7218-25F1BD1BBEAB}
+		{3FF00504-D776-FC14-943E-D0241F6AE263} = {1787FE1D-075E-9E68-7218-25F1BD1BBEAB}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {8598CDE5-7A2C-4390-A427-449D67FDCC7E}
+	EndGlobalSection
+EndGlobal
