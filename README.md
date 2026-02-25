@@ -5,20 +5,15 @@ Compare build times and bundle sizes between CoreCLR, Mono, and NativeAOT runtim
 ## Quick Start
 
 ```bash
-./measure-perf.sh ios coreclr release simulator
+./dotnet.sh
+./install-custom-macios.sh
+./measure-perf.sh maui coreclr release
 ```
-
-## Scripts
-
-| Script | Description |
-|--------|-------------|
-| `dotnet.sh` | Downloads .NET SDK, installs iOS/MAUI workloads, and xharness |
-| `measure-perf.sh` | Runs performance measurement |
 
 ## Usage
 
 ```bash
-./measure-perf.sh <app> <runtime> <config> <target>
+./measure-perf.sh <app> <runtime> <config>
 ```
 
 | Parameter | Values |
@@ -26,25 +21,14 @@ Compare build times and bundle sizes between CoreCLR, Mono, and NativeAOT runtim
 | app | `ios`, `maui` |
 | runtime | `coreclr`, `mono`, `nativeaot` |
 | config | `debug`, `release` |
-| target | `simulator`, `device` |
-
-### Examples
-
-```bash
-./measure-perf.sh ios coreclr release simulator   # iOS, CoreCLR, Release, Simulator
-./measure-perf.sh ios mono release device         # iOS, Mono, Release, Device
-./measure-perf.sh maui coreclr debug simulator    # MAUI, CoreCLR, Debug, Simulator
-```
 
 ## Requirements
 
-- macOS with arm64 (Apple Silicon)
+- macOS and iPhone with arm64 (Apple Silicon)
 - Xcode with iOS SDK
 
 ## Output
 
 Each run creates a timestamped directory in `results/` containing:
-- `results.md` - Markdown report with metrics
-- `*.app` - App bundle snapshot
-- `logs/` - xharness device/simulator logs
+- `results` - xharness device logs
 
