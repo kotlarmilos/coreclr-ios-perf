@@ -95,13 +95,6 @@ TIMESTAMP=$(date +%Y%m%d-%H%M%S)
 RUN_DIR="$RESULTS_DIR/${APP}-${RUNTIME}-${CONFIG}-${TIMESTAMP}"
 mkdir -p "$RUN_DIR"
 
-# Create app if needed (skip for SeeingAI, AzureUX, and M365Admin which are already present)
-mkdir -p "$APPS_DIR"
-if [[ "$APP" != "seeingai" && "$APP" != "azureux" && "$APP" != "m365admin" && ! -d "$APPS_DIR/$APP_NAME" ]]; then
-    echo "Creating $APP_NAME..."
-    "$DOTNET" new $APP -n $APP_NAME -o "$APPS_DIR/$APP_NAME" --force
-fi
-
 # Build with timing
 echo "Building..."
 BUILD_START=$(date +%s.%N)
