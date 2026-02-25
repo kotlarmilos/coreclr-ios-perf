@@ -38,6 +38,18 @@
 		<TargetPlatformMinVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">10.0.17763.0</TargetPlatformMinVersion>
 	</PropertyGroup>
 
+
+	<!-- <PropertyGroup>
+		<Crossgen2Path>/Users/miloskotlar/dotnet/runtime-ios/artifacts/bin/coreclr/ios.arm64.Release/arm64/crossgen2/crossgen2</Crossgen2Path>
+		<AfterMicrosoftNETSdkTargets>$(AfterMicrosoftNETSdkTargets);/Users/miloskotlar/dotnet/runtime-ios/artifacts/bin/Crossgen2Tasks/Release/Microsoft.NET.CrossGen.props;/Users/miloskotlar/dotnet/runtime-ios/artifacts/bin/Crossgen2Tasks/Release/Microsoft.NET.CrossGen.targets</AfterMicrosoftNETSdkTargets>
+		<Crossgen2TasksOverriden>true</Crossgen2TasksOverriden>
+		<PublishReadyToRunUseCrossgen2>true</PublishReadyToRunUseCrossgen2>
+	</PropertyGroup>
+
+	<PropertyGroup>
+		<PublishReadyToRunCrossgen2ExtraArgs>$(PublishReadyToRunCrossgen2ExtraArgs);-1strip-inlining-info;-1-strip-debug-info</PublishReadyToRunCrossgen2ExtraArgs>
+	</PropertyGroup> -->
+
 	<ItemGroup>
 		<!-- App Icon -->
 		<MauiIcon Include="Resources\AppIcon\appicon.svg" ForegroundFile="Resources\AppIcon\appiconfg.svg" Color="#512BD4" />

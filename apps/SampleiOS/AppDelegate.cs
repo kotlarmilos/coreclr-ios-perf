@@ -40,13 +40,13 @@ public class AppDelegate : UIApplicationDelegate
 
 	public override bool FinishedLaunching(UIApplication application, NSDictionary? launchOptions)
 	{
-		DebugLaunchTimePrint("RuntimeInit - didFinishLaunchingWithOptions: BEGIN");
+		DebugLaunchTimePrint("didFinishLaunchingWithOptions begin");
 
 		Window = new UIWindow(UIScreen.MainScreen.Bounds);
 		Window.RootViewController = new UIViewController();
 		Window.MakeKeyAndVisible();
 
-		DebugLaunchTimePrint("RuntimeInit - didFinishLaunchingWithOptions: END");
+		DebugLaunchTimePrint("didFinishLaunchingWithOptions end");
 		return true;
 	}
 }

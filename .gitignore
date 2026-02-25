@@ -5,10 +5,6 @@
 dotnet/
 *.tar.gz
 
-# App build outputs
-apps/*/bin/
-apps/*/obj/
-
 # Tools
 tools/
 
@@ -19,3 +15,4 @@ results/
 packages/
 
 macios/
+apps/

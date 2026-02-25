@@ -40,13 +40,13 @@ public class AppDelegate : MauiUIApplicationDelegate
 
 	public override bool FinishedLaunching(UIApplication application, NSDictionary launchOptions)
 	{
-		DebugLaunchTimePrint("RuntimeInit - didFinishLaunchingWithOptions: BEGIN");
+		DebugLaunchTimePrint("didFinishLaunchingWithOptions begin");
 
 		// Call base first to let MAUI initialize
 		var result = base.FinishedLaunching(application, launchOptions);
 		
 		// Measurement after MAUI initialization complete
-		DebugLaunchTimePrint("RuntimeInit - didFinishLaunchingWithOptions: END");
+		DebugLaunchTimePrint("didFinishLaunchingWithOptions end");
 		
 		return result;
 	}
