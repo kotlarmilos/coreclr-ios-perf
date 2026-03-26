@@ -16,7 +16,9 @@
 		<SingleProject>true</SingleProject>
 		<ImplicitUsings>enable</ImplicitUsings>
 		<Nullable>enable</Nullable>
-    	<TrimMode Condition="'$(Configuration)' == 'Release'">full</TrimMode>
+		<TrimMode Condition="'$(Configuration)' == 'Release'">full</TrimMode>
+		<!-- Disable dsymutil for debug builds to avoid missing framework errors -->
+		<NoDSymUtil Condition="'$(Configuration)' == 'Debug'">true</NoDSymUtil>
 
 		<!-- Display name -->
 		<ApplicationTitle>SampleMAUI</ApplicationTitle>
@@ -69,8 +71,8 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<PackageReference Include="Microsoft.Maui.Controls" Version="11.0.0-preview.1.26102.3" />
-		<PackageReference Include="Microsoft.Maui.Essentials" Version="11.0.0-preview.1.26102.3" />
+		<PackageReference Include="Microsoft.Maui.Controls" Version="11.0.0-preview.1.26160.5" />
+		<PackageReference Include="Microsoft.Maui.Essentials" Version="11.0.0-preview.1.26160.5" />
 		<PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="11.0.0-preview.2.26102.101" />
 	</ItemGroup>
 

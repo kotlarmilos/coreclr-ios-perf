@@ -9,7 +9,13 @@ IFS=$'\n\t'
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 MACIOS_DIR="$SCRIPT_DIR/macios"
 PACK_DIR="$SCRIPT_DIR/dotnet/packs"
-INSTALLED_VERSION="26.2.11310-net11-p1"
+# Detect the installed workload version from the local SDK
+INSTALLED_VERSION=$(ls -1 "$PACK_DIR/Microsoft.iOS.Sdk.net11.0_26.2/" 2>/dev/null | head -1)
+if [ -z "$INSTALLED_VERSION" ]; then
+  echo "Error: No iOS SDK pack found. Run ./dotnet.sh first."
+  exit 1
+fi
+echo "Detected installed workload version: $INSTALLED_VERSION"
 
 # =============================================================================
 # Step 1: Clone macios repo
@@ -33,7 +39,7 @@ export IGNORE_XCODE_COMPONENTS=1
 export IGNORE_SIMULATORS=1
 
 if [[ "${1:-}" != "--skip-build" ]]; then
-  git clean -xfd
+  git clean -xffd
   
   # Apply patches AFTER git clean
   echo "Applying patches..."
@@ -51,7 +57,7 @@ void debug_launch_time_print (const char *msg);
   sed -i '' 's|^SUBDIRS=test-libraries dotnet|SUBDIRS=|' tests/Makefile
 
   # Patch Make.config - use default Xcode.app path
-  sed -i '' 's|XCODE_DEVELOPER_ROOT=/Applications/Xcode_26.2.0.app/Contents/Developer|XCODE_DEVELOPER_ROOT=/Applications/Xcode.app/Contents/Developer|' Make.config
+  sed -i '' 's|XCODE_DEVELOPER_ROOT=/Applications/Xcode.app/Contents/Developer|XCODE_DEVELOPER_ROOT=/Applications/Xcode.app/Contents/Developer|' Make.config
 
   echo "Patches applied"
   
@@ -116,6 +122,21 @@ for PACK in "${PACKS[@]}"; do
     echo "  ⚠ Package not found: $NUPKG_NAME"
   fi
 done
+
+# =============================================================================
+# Step 4: Copy missing files not included in nupkgs
+# =============================================================================
+echo "=== Step 4: Copy missing build artifacts ==="
+
+SDK_PACK_DIR="$PACK_DIR/Microsoft.iOS.Sdk.net11.0_26.2/$LOCAL_VERSION"
+
+# TrimAttributes.LinkDescription.xml is referenced by Xamarin.Shared.Sdk.targets
+# but not included in the Sdk nupkg by the macios build.
+if [ -f "$MACIOS_DIR/src/TrimAttributes.LinkDescription.xml" ] && [ ! -f "$SDK_PACK_DIR/tools/TrimAttributes.LinkDescription.xml" ]; then
+  mkdir -p "$SDK_PACK_DIR/tools"
+  cp "$MACIOS_DIR/src/TrimAttributes.LinkDescription.xml" "$SDK_PACK_DIR/tools/"
+  echo "  ✓ Copied TrimAttributes.LinkDescription.xml"
+fi
 
 echo ""
 echo "=== Custom macios installed successfully! ==="
