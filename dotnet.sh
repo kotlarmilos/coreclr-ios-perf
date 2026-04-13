@@ -17,7 +17,7 @@ rm -rf "$DOTNET_DIR"
 
 # Install latest .NET 11 preview using the official install script
 curl -sSL https://dot.net/v1/dotnet-install.sh | bash /dev/stdin \
-    --channel 11.0 --quality preview --install-dir "$DOTNET_DIR"
+    --channel 11.0 --quality daily --install-dir "$DOTNET_DIR"
 
 # Ensure we use this local SDK (not system SDK)
 export DOTNET_ROOT="$DOTNET_DIR"
